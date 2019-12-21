@@ -1,0 +1,54 @@
+<!doctype html>
+<html class="no-js"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="fragments/head::head"></head>
+
+    <body>
+
+        <div id="preloader">
+            <div class="loader"></div>
+        </div>
+
+        <div class="page-container">
+
+            <div th:replace="fragments/sidebar::sidebar"></div>
+
+            <div class="main-content">
+
+                <div th:replace="fragments/header::header"></div>
+
+                <div class="page-title-area" layout:fragment="page_title"></div>
+
+                <div class="main-content-inner" layout:fragment="content"></div>
+
+            </div>
+
+            <footer th:replace="fragments/footer::footer"></footer>
+
+        </div>
+
+
+        <script th:src="@{/assets/js/vendor/jquery-2.2.4.min.js}"></script>
+
+        <script th:src="@{/assets/js/popper.min.js}"></script>
+        <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+        <script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+        <script th:src="@{/assets/js/metisMenu.min.js}"></script>
+        <script th:src="@{/assets/js/jquery.slimscroll.min.js}"></script>
+        <script th:src="@{/assets/js/jquery.slicknav.min.js}"></script>
+
+        <script th:src="@{/assets/js/plugins.js}"></script>
+        <script th:src="@{/assets/js/scripts.js}"></script>
+
+
+        <th:block layout:fragment="script">
+
+        </th:block>
+
+    </body>
+
+</html>

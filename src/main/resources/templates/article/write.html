@@ -1,0 +1,82 @@
+<!doctype html>
+<html class="no-js"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+
+<th:block layout:fragment="head_title">
+    <title> Lee YeongJae | Write </title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+</th:block>
+
+<body>
+
+<div class="page-title-area" layout:fragment="page_title">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <div class="breadcrumbs-area clearfix">
+                <h4 class="page-title pull-left">작성 페이지</h4>
+                <ul class="breadcrumbs pull-left">
+                    <li><a>article</a></li>
+                    <li><span>write</span></li>
+                </ul>
+            </div>
+        </div>
+        <div th:replace="fragments/profile::profile"></div>
+    </div>
+</div>
+
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-lg-12 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <form th:action="@{/article/write}" method="post">
+                        <div class="form-group">
+                            <label for="title">제목</label>
+                            <input class="form-control" id="title" type="text" name="title" th:value="${article.title}" placeholder="제목을 입력해주세요...">
+                        </div>
+                        <div class="form-group">
+                            <label for="content">내용</label>
+                            <textarea id="content" name="content" th:text="${article.content}"></textarea>
+                        </div>
+                        <div class="form-group" th:with="member=${#authentication.principal.member}">
+                            <label for="writer">작성자</label>
+                            <input class="form-control" id="writer" type="text" name="writer" th:value="${member.memberName}" readonly>
+                        </div>
+                        <hr/>
+                        <button type="reset" class="btn btn-secondary" id="reset"><i class="fa fa-refresh"></i> 초기화</button>
+                        <button type="submit" class="btn btn-primary float-right"><i class="fa fa-save"></i> 저장</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <th:block layout:fragment="script">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+        <script th:src="@{/assets/js/summernote-ko-KR.js}"></script>
+
+        <script th:inline="javascript">
+            $(document).ready(function () {
+                $("#content").summernote({
+                    lang: 'ko-KR',
+                    placeholder: "내용을 입력해주세요",
+                    tabsize: 2,
+                    height: 600
+                });
+                
+                $("#reset").click(function () {
+                    $("#title").val("");
+                    $("#writer").val("");
+                    $('#content').summernote("code", "");
+                });
+            });
+        </script>
+    </th:block>
+</body>
+
+</html>
